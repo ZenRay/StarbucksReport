@@ -50,14 +50,14 @@ def view_progress(iterdata, dictdata, length, target):
 
             # maybe there is no offer_id
             current_index = (row[1]["person"], row[1]["offer_id"])
-        except KeyError as err:
-            print(err)
+        except KeyError:
             current_index = row[1]["person"]
 
         
         # update the target value
-        for index, value in zip(dictdata[current_index], time_interval):
-            target.loc[index] = value
+        target.loc[dictdata[current_index]] = time_interval
+        # for index, value in zip(dictdata[current_index], time_interval):
+        #     target.loc[index] = value
     bar.finish()
 
 
