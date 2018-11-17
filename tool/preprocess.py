@@ -91,3 +91,30 @@ def parse_time_value(data, target_column, option="offer_id"):
     columns = result.columns
 
     return result, columns
+
+def group_size(data, by, label="count", **kwargs):
+    """Caculate the size and transform
+    
+    Caculate the data groups size and transform as DataFrame
+
+    Parameters:
+    -----------
+    data: DataFrame
+        Original data
+    by: label or list of labels
+        Used to determine the groups for tht groupby.
+    label: label
+        Used to rename the new DataFrame label
+    
+    Returns:
+    ---------
+    result: DataFrame
+        Store the data that is transformed the groups data into DataFrame
+    """
+    group_data = data.groupby(by=by, **kwargs).size()
+
+    result = group_data.reset_index()
+
+    result.rename({0: label}, inplace=True, axis=1)
+
+    return result
