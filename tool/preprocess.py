@@ -118,3 +118,43 @@ def group_size(data, by, label="count", **kwargs):
     result.rename({0: label}, inplace=True, axis=1)
 
     return result
+
+def members_with_time(data, start, end, column, rolling=30, method="mean"):
+    """Caculate the member in the specific period
+    Create a data to store the member amount in the specific period
+
+    Parameters:
+    ------------
+    data: DataFrame
+        Original data
+    start: datetime
+        Start date
+    end: datetime
+        End date
+    column: label
+        A label about the value caculated
+    rolling: int
+        The size of moving window
+    method: string default mean
+        The caculating method is used to caculate the moving statistic. Common 
+        methods are mean or sum
+    
+    Returns:
+    -----------
+    result: 
+        Store the caculate result
+    """
+
+    result = pd.DataFrame(columns=[column], 
+        index=pd.DatetimeIndex(start=start, end=end, freq="d")
+    )
+    
+    result[column].fillna(data, inplace=True)
+    # moving caculation
+    if method == "mean":
+        result[column] = result[column].rolling(rolling).mean()
+    elif method == "sum":
+        result[column] = result[column].rolling(rolling).sum()
+    
+
+    return result
