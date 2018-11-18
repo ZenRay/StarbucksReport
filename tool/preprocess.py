@@ -3,7 +3,7 @@
 
 import pandas as pd
 import numpy as np
-from addiction import view_progress
+from addiction import view_progress, bar_value
 
 def parse_offer_id(x, option=["offer_id", "offer id"]):
     """Parse the offer id value

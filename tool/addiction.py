@@ -9,6 +9,8 @@ Purpose:
 import numpy as np
 import pandas as pd
 from progressbar import Bar, ProgressBar, Timer, ETA, FileTransferSpeed, Percentage
+import matplotlib.pyplot as plt
+import matplotlib as mtl
 
 def view_progress(iterdata, dictdata, length, target):
     """Show the progress percentage
@@ -62,3 +64,23 @@ def view_progress(iterdata, dictdata, length, target):
 
 
     return target
+
+def bar_value(data, xpad, ypad, **fontdict):
+    """Plot the bar value
+
+    Add the text about the bar plot
+
+    Parametes:
+    -----------
+    data: default Series
+        Original data to plot the text
+    xpad ypad: float
+        The offset of the text from the bar top
+    
+    Other Parameters:
+    ----------
+    **fontdict: Text properties
+        It is fontdict property
+    """
+    for index, value in enumerate(data):
+        plt.text(x=index+xpad, y=value+ypad, s="%s" % value, **fontdict)
