@@ -121,3 +121,30 @@ def self_merge(
     result = pd.merge(data1, data2, how=how, **kwargs)
 
     return result
+
+def info_filter(x, filter1="time_received", filter2="time_viewed"):
+    """Check the validate x
+    The function is used to the apply method, the value x is a iterable object 
+    that is the axis x value. The condition is that the total time between the 
+    received time and the duration time is equal or less than the current 
+    transaction time
+
+    Note:
+    --------------
+    It is used to filter the informational type value
+
+    Kernel example:
+    ---------------
+    df.apply(lambda x: x['col1'] > x['col2'], axis=1)
+
+    Example:
+    --------------
+    df.apply(info_filter, axis=1)
+    """
+
+    if pd.notnull(x[filter1]) and (x[filter2] + x["duration"] <= x["time"]):
+        result = True
+    else:
+        result = False
+    
+    return result
