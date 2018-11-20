@@ -166,9 +166,14 @@ def merge_data(
     According to whether the data is same, the data is merged by itself, or not.
     The data is the transript data and the portfolio data
 
-    Other parameters:
-    self_merge(data, condition, cond_value1, cond_value2, columns1, columns2, 
+    Self merge parameters example:
+    merge_data(data1, data1, condition="condition", cond_value1="col_value1",
+        cond_value2="col_value2", columns1=["val1", "val2"], on=["col1", "col2"],
+        columns2=["val3", "val4", ...], portfolio=portfolio,
+        suffixes=("_suff1", "_suff2"), portfolio_suffix=("_info", "_data"),
         **kwargs)
+    None self merge parameters:
+    merge_data(data1, data2, on="col", portfolio_suffix=("_feat1", "_feat2"))
     
     Not: If need merge the porfolio, pass the key value argument: 
         portfolio=portfolio
@@ -204,7 +209,8 @@ def merge_data(
                 suffixes=portfolio_suffix
             )
     else:
-        result = data1.merge(data1,  how=how, **kwargs)
+        result = pd.merge(data1, data2, how=how, suffixes=portfolio_suffix, **kwargs)
+        # data1.merge(data1,  how=how, **kwargs)
     
     # delete the columns with all missing values
     result.dropna(how="all", axis=1, inplace=True)
