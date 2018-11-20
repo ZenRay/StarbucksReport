@@ -3,7 +3,7 @@
 
 import pandas as pd
 import numpy as np
-from addiction import view_progress, bar_value
+from addiction import view_progress, bar_value, self_merge
 
 def parse_offer_id(x, option=["offer_id", "offer id"]):
     """Parse the offer id value
@@ -157,4 +157,55 @@ def members_with_time(data, start, end, column, rolling=30, method="mean"):
         result[column] = result[column].rolling(rolling).sum()
     
 
+    return result
+
+def merge_data(
+    data1, data2, how="left",  portfolio_suffix=None, **kwargs
+):
+    """Merge the data
+    According to whether the data is same, the data is merged by itself, or not.
+    The data is the transript data and the portfolio data
+
+    Other parameters:
+    self_merge(data, condition, cond_value1, cond_value2, columns1, columns2, 
+        **kwargs)
+    
+    Not: If need merge the porfolio, pass the key value argument: 
+        portfolio=portfolio
+
+    Parameters:
+    -----------
+    data1, data2: DataFrame
+        The original data. If the merge_more is True, merge the other data
+    how: {"left", "right", "outer", "inner"} default "left"
+        The merge method parameter how
+    portfolio_suffix: tuple, suffixes information
+        It is suffixes that is used in the portfolio merged
+
+    Results:
+    -----------
+    result:
+        Merged data
+    
+    Other Parameters:
+    -----------------
+    kwargs:
+        Additional args
+    """
+    if "portfolio" in kwargs:
+        portfolio = kwargs["portfolio"]
+        del kwargs["portfolio"]
+
+    if data1 is data2:
+        result = self_merge(data1, **kwargs)
+        if isinstance(portfolio_suffix, tuple):
+            result = result.merge(
+                portfolio, how="left", left_on="offer_id", right_on="id",
+                suffixes=portfolio_suffix
+            )
+    else:
+        result = data1.merge(data1,  how=how, **kwargs)
+    
+    # delete the columns with all missing values
+    result.dropna(how="all", axis=1, inplace=True)
     return result

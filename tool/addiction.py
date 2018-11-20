@@ -84,3 +84,40 @@ def bar_value(data, xpad, ypad, **fontdict):
     """
     for index, value in enumerate(data):
         plt.text(x=index+xpad, y=value+ypad, s="%s" % value, **fontdict)
+
+def self_merge(
+    data, condition, cond_value1, cond_value2, columns1, columns2, how="left",
+    **kwargs,
+):
+    """The DataFrame Merged with itself
+    
+    Merge the DataFrame itself with different condition, besides need specific 
+    the columns that the values are needed
+
+    Parameters:
+    -----------
+    data: DataFrame
+        Original values
+    condition: column label
+        The specific column label is used to filter the data
+    cond_value1, cond_value2: string
+        It is the condition column value
+    columns1, columns2: column labels
+        The specific column labels are used to get the values
+
+    Results:
+    ----------
+    result: 
+        The data merged
+
+    Other Parameters:
+    -----------------
+    kwargs: additional parametes
+        They are the merge method parameters
+    """
+    data1 = data.loc[data[condition] == cond_value1, columns1]
+    data2 = data.loc[data[condition] == cond_value2, columns2]
+
+    result = pd.merge(data1, data2, how=how, **kwargs)
+
+    return result
