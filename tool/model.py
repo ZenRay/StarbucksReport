@@ -18,6 +18,10 @@ from sklearn.feature_selection import SelectPercentile, f_regression, mutual_inf
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import mean_squared_error, r2_score, make_scorer
 
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 def model_built(
     pipeline, param_grid, X, y, report=False, model_name=None, 
     test_X=None, test_y=None, **kwargs
@@ -60,3 +64,34 @@ def model_built(
         )
     
     return cv
+
+def plot_feature(cv, index, model_index=1, ascending=False):
+    """Plot the feature importance
+
+    Plot the model importance
+
+    Parameters:
+    -----------
+    cv: estimator
+        The estimater is trained by tunning the parameters
+    index:
+        The train data columns
+    model_index: int indice 
+        Specific the cv model indice
+    """
+    value = cv.best_estimator_.steps[model_index][1].feature_importances_
+    new_index = index[cv.best_estimator_.steps[0][1].get_support()]
+
+    data = pd.DataFrame(value, index=new_index)
+    data = data.reset_index().sort_values(0, ascending=False)
+
+    with sns.axes_style("dark"), sns.plotting_context("paper", font_scale=1.5):
+        plt.figure(figsize=(7, 7))
+        ax = plt.subplot()
+        sns.barplot(
+            y="index", x=0, data= data, orient="h", palette=["#8c8c91"], ax=ax
+        )
+        plt.xlabel("")
+        plt.ylabel("")
+
+    return ax
