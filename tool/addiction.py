@@ -4,7 +4,7 @@
 """
 Purpose:
 ---------
-    The module contains additional functions that deal with the specific function
+    The script contains additional functions that deal with the specific function
 """
 import numpy as np
 import pandas as pd
