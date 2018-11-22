@@ -78,7 +78,7 @@ When we analyze the users' willing, we use the amount as the target label and th
 
    * According to the feature importance, the feature high-income level, the feature became-member date, and the female gender are important demographic information. At the promotion side, the promotion duration is more important than the promotion type; the BOGO type and the discount type are not important.
 
-   In totally, the result almost agree with the former analysis.
+   In totally, the result almost agree with the former analysis. **Besides, the project article is  [Give Best Promotion To Appropriate Customer](https://medium.com/@RayZen/give-best-promotion-to-appropriate-customer-8abb170ca76e) **
 
 ## Licensing<a id="licensing"></a>
 
