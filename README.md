@@ -33,6 +33,10 @@ When we analyze the users' willing, we use the amount as the target label and th
 
   The directory contains all functional script
 
+* [Starbucks_Capstone_notebook_report.md](./Starbucks_Capstone_notebook_report.md)
+
+  The final report file
+
 ```
 ├── README.md
 ├── Starbucks_Capstone_notebook.ipynb
