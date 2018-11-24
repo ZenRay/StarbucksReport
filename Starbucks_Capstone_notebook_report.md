@@ -254,7 +254,7 @@ At last, we plot the feature importance, so that we can verify our former infere
 
 ### 4.1 Discussion
 
-In the process of analyzing, we are stuck in some steps, especially, the data merging. The transaction data contains all transaction records. At the early step, we can't know the promotion conversion path, so that we take so many time to understand the data. At the model steps, we find that the prediction and the true value are not perfect consensuses. It is show that the 𝑅2R2 value is not very good. So we can make a more technical method to build a model, like the XGBoost that can use the gradient boosting method and use the penalty term ΩΩ to avoid overfitting, in order to make an improvement
+In the process of analyzing, we are stuck in some steps, especially, the data merging. The transaction data contains all transaction records. At the early step, we can't know the promotion conversion path, so that we take so many time to understand the data. At the model steps, we find that the prediction and the true value are not perfect consensuses. It is show that the 𝑅2 value is not very good. So we can make a more technical method to build a model, like the XGBoost that can use the gradient boosting method and use the penalty term $\Omega$ to avoid overfitting, in order to make an improvement
 
 ### 4.2 Data Result
 
