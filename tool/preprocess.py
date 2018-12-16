@@ -215,3 +215,31 @@ def merge_data(
     # delete the columns with all missing values
     result.dropna(how="all", axis=1, inplace=True)
     return result
+
+def split_type(index, columns, values, suffix:str, data):
+    """Split the promotion type
+
+    Calculate the number of the different promotion status type 
+
+    Parameters:
+    -----------
+    index, columns, values: string
+        They are pivot parameters
+    
+    suffix: string
+        Suffix to overlapping the column names
+    data: DataFrame
+    
+    Returns:
+    ----------
+    result: DataFrame
+    """
+    target_column = ["bogo", "discount", "informational"]
+    data = data.pivot(index=index, columns=columns, values=values).reset_index()
+
+    result = data[[index] + target_column]
+    
+    # add the suffix string
+    result.columns = [index] + [x + suffix for x in target_column]
+
+    return result
