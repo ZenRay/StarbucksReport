@@ -243,3 +243,34 @@ def split_type(index, columns, values, suffix:str, data):
     result.columns = [index] + [x + suffix for x in target_column]
 
     return result
+
+def transaction_count(
+    data, filter_column, filter_value, target_column, rename_columns:dict
+):
+    """Calculate the total transaction number
+
+    Calculate the non-promotion transaction number
+
+    Parameters:
+    -------------
+    data: DataFrame
+        Origina DataFrame
+    filter_column: string
+        It is column label that is used to filter data
+    filter_value: string
+        Is is a value in the filter_column
+    target_column:  string
+        Is is column label that is used to be calculated
+    rename_columns: dict
+        It is a dict that is used to change the final columns
+
+    Results:
+    ------------
+    result: DataFrame
+        It is storage the data
+    """
+    data = data.loc[data[filter_column] == filter_value, target_column].value_counts()
+
+    result = data.reset_index().rename(rename_columns, axis=1)
+
+    return result
