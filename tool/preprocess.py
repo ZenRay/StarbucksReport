@@ -274,3 +274,22 @@ def transaction_count(
     result = data.reset_index().rename(rename_columns, axis=1)
 
     return result
+
+def calculate_member_day(data):
+    """Calculate member days
+
+    Calculate the days since the user became member
+
+    Parameters:
+    ------------
+    data: Series
+        Timestamp series
+
+    Results:
+    result: Series
+        Get the days
+    """
+    latest_day = data.max()
+    result = (latest_day - data).dt.days
+    
+    return result
